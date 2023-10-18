@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Dental_College.Models.Genders>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender_Desc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EntryDateTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender_Desc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EntryDateTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Gender_ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Gender_ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Gender_ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

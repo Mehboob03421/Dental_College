@@ -1,0 +1,88 @@
+﻿
+@model Dental_College.Models.Cities
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Cities</h4>
+<hr />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#CountryCode").change(function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            var selectedCountry = $(this).val();
+            if (selectedCountry) {
+                $.ajax({
+                    url: '@Url.Action("GetStatesByCountry", "CitiesManager")', // Update the controller name
+                    type: 'GET',
+                    data: { countryCode: selectedCountry.toString() }, // Convert to string
+                    success: function (data) {
+                        var stateDropdown = $("#StateCode");
+                        stateDropdown.empty();
+                        stateDropdown.append($('<option>').val('').text('Select State'));
+                        $.each(data, function (index, item) {
+                            stateDropdown.append($('<option>').val(item.value).text(item.text));
+                        });
+                    }
+                });
+            } else {
+                // Reset the states dropdown if no country is selected
+                $("#StateCode").empty();
+                $("#StateCode").append($('<option>').val('').text('Select State'));
+            }
+        });
+    });
+</script>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="CountryCode" class="control-label"></label>
+                <select asp-for="CountryCode" class ="form-control" asp-items="ViewBag.CountryCode"></select>
+            </div>*@
+            <div class="form-group">
+                <label for="CountryCode">Country</label>
+                <select id="CountryCode" class="form-control" name="CountryCode">
+                    <option value="">Select Country</option>
+                    @foreach (var country in ViewData["Countries"] as SelectList)
+                    {
+                        <option value="@country.Value">@country.Text</option>
+                    }
+                </select>
+            </div>
+            @*<div class="form-group">
+                <label asp-for="StateCode" class="control-label"></label>
+                <select asp-for="StateCode" class ="form-control" asp-items="ViewBag.StateCode"></select>
+            </div>*@
+            <div class="form-group">
+                <label for="StateCode">State</label>
+                <select id="StateCode" class="form-control" name="StateCode">
+                    <option value="">Select State</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CityName" class="control-label"></label>
+                <input asp-for="CityName" class="form-control" />
+                <span asp-validation-for="CityName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

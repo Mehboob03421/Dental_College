@@ -1,0 +1,42 @@
+﻿@model Countries
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Countries</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CountryName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CountryName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NationalLanguage)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NationalLanguage)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CurrencyName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CurrencyName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Dialing_Code)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Dialing_Code)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CountryCode">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

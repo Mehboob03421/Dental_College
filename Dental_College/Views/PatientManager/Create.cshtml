@@ -1,0 +1,168 @@
+﻿@model Dental_College.Models.Patient
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Patient</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="PatientType_ID" class="control-label">Patient Type:</label>
+                <div>
+                    
+                    @if (ViewBag.patienttypes != null)
+                    {
+                        @foreach (var patienttype in ViewBag.patienttypes)
+                        {
+                            if (patienttype != null && patienttype.PatientType_ID != null)
+                            {
+                                <label>
+                                    <input type="radio" asp-for="PatientType_ID" value="@patienttype.PatientType_ID" />
+                                    @patienttype.PatientType_Desc
+                                </label>
+                               
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <p>No patient types available.</p>
+                    }
+                </div>
+                
+                <span asp-validation-for="PatientType_ID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PatientIdType_Code" class="control-label">Patient.ID Type:</label>
+                <div>
+                    @if (ViewBag.patientidtypes != null)
+                    {
+                    @foreach (var patienttype in ViewBag.patientidtypes) // Assuming you pass the patienttype from the controller
+                    {
+                        <label>
+                            <input type="radio" asp-for="PatientIdType_Code" value="@patienttype.PatientIdType_Code" />
+                            @patienttype.PatientIdType_Desc
+                        </label>
+                        
+                    }
+                    }
+                    else
+                    {
+                        <p>No Patient Identification Types Available.</p>
+                    }
+                </div>
+                <span asp-validation-for="PatientType_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patient_ID" class="control-label"></label>
+                <input asp-for="Patient_ID" class="form-control" />
+                <span asp-validation-for="Patient_ID" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="Prefix_Code" class="control-label">Patient Prefix:</label>
+
+                <div>
+                    @if (ViewBag.Prefixes != null)
+                    {
+                    @foreach (var prefix in ViewBag.Prefixes) // Assuming you pass the prefixes from the controller
+                    {
+                        <label>
+                            <input type="radio" asp-for="Prefix_Code" value="@prefix.Prefix_Code" />
+                            @prefix.Prefix_Desc
+                        </label>
+                        
+                    }
+                    }
+                    else
+                    {
+                        <p>No Patient Prefix is Available.</p>
+                    }
+                </div>
+                <span asp-validation-for="Prefix_Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PFName" class="control-label"></label>
+                <input asp-for="PFName" class="form-control" />
+                <span asp-validation-for="PFName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PMName" class="control-label"></label>
+                <input asp-for="PMName" class="form-control" />
+                <span asp-validation-for="PMName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PLName" class="control-label"></label>
+                <input asp-for="PLName" class="form-control" />
+                <span asp-validation-for="PLName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RFName" class="control-label"></label>
+                <input asp-for="RFName" class="form-control" />
+                <span asp-validation-for="RFName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RMName" class="control-label"></label>
+                <input asp-for="RMName" class="form-control" />
+                <span asp-validation-for="RMName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RLName" class="control-label"></label>
+                <input asp-for="RLName" class="form-control" />
+                <span asp-validation-for="RLName" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+                <input type="file" name="Patient_Pictures" class="form-control" />
+            </div>*@
+    <div class="form-group">
+        @*<label asp-for="Patient_Pictures" class="control-label">Patient Picture:</label>*@
+        <input type="file" name="Patient_Pictures" class="form-control" id="patientPictureInput" />
+    </div>
+    <img id="selectedPatientPicture" src="#" alt="Patient Picture" width="100" style="display: none;" />
+    <div id="selectedFileName"></div>
+
+    <script>
+        document.getElementById('patientPictureInput').addEventListener('change', function () {
+            var selectedFile = this.files[0];
+            if (selectedFile) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('selectedPatientPicture').src = e.target.result;
+                    document.getElementById('selectedPatientPicture').style.display = 'block';
+                    document.getElementById('selectedFileName').textContent = 'Selected File: ' + selectedFile.name;
+                };
+                reader.readAsDataURL(selectedFile);
+            } else {
+                document.getElementById('selectedPatientPicture').src = '#';
+                document.getElementById('selectedPatientPicture').style.display = 'none';
+                document.getElementById('selectedFileName').textContent = '';
+            }
+        });
+    </script>
+
+            
+            @*<div class="form-group">
+                <label asp-for="RegEntry_DateTime" class="control-label"></label>
+                <input asp-for="RegEntry_DateTime" class="form-control" />
+                <span asp-validation-for="RegEntry_DateTime" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts { @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}}

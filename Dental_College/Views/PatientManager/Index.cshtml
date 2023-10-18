@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Dental_College.Models.Patient>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MedicalRecord_No)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prefix_Code)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PFName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PMName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PLName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RFName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RMName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RLName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PatientPicture_Path)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegEntry_DateTime)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MedicalRecord_No)
+                </td>
+            <td>
+                    @*@Html.DisplayFor(modelItem => item.Prefix_Code)*@
+                    @foreach (var prefix in ViewData["Prefixes"] as List<PatientPrefixes>)
+                    {
+                        if (prefix.Prefix_Code == item.Prefix_Code)
+                        {
+                            @prefix.Prefix_Desc
+                        }
+                    }
+            </td>
+                
+            <td>
+                @Html.DisplayFor(modelItem => item.PFName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PMName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PLName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RFName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RMName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RLName)
+            </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.PatientPicture_Path))
+                    {
+                        <img src="@Url.Content(item.PatientPicture_Path)" alt="Patient Picture" width="100" />
+                    }
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegEntry_DateTime)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MedicalRecord_No">Edit</a> |
+               @* <a asp-action="Details" asp-route-id="@item.MedicalRecord_No">Details</a> |*@
+                <a asp-action="Delete" asp-route-id="@item.MedicalRecord_No">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

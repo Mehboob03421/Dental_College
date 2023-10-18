@@ -1,0 +1,108 @@
+﻿
+@model Dental_College.Models.Patient
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Patient</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PatientType_ID)
+        </dt>
+        @*<dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PatientType_ID)
+        </dd>*@
+        <dd class="col-sm-10">
+            @ViewData["PatientTypeDesc"]
+        </dd>
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PatientIdType_Code)
+        </dt>
+        @*<dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PatientIdType_Code)
+        </dd>*@
+        <dd class="col-sm-10">
+            @ViewData["PatientIdTypeDesc"]
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient_ID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Patient_ID)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Prefix_Code)
+        </dt>
+        @*<dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Prefix_Code)
+        </dd>*@
+        <dd class="col-sm-10">
+            @ViewData["PatientprefixeDesc"]
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PFName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PFName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PMName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PMName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PLName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PLName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RFName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RFName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RMName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RMName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RLName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RLName)
+        </dd>
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PatientPicture_Path)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PatientPicture_Path)
+        </dd>*@
+        <dd class="col-sm-10">
+                <label for="currentPatientPicture">Current Patient Picture:</label>
+                <img src="@Url.Content(Model.PatientPicture_Path)" id="currentPatientPicture" class="img-thumbnail" alt="Patient Picture" width="150" height="75" />
+        </dd>
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RegEntry_DateTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RegEntry_DateTime)
+        </dd>*@
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MedicalRecord_No" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
